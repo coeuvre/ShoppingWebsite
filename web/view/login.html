@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <button class="ui blue button" ng-click="user.login()">登陆</button>
-                <div class="ui error message">
+                <div class="ui error message" ng-show="user.error">
                     <p>{{user.error}}</p>
                 </div>
 
