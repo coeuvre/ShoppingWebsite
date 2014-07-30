@@ -1,0 +1,70 @@
+<div id="content">
+    <div id="sidebar">
+        <div class="ui vertical steps">
+            <div class="ui step">
+                {{register.step[0]}}
+            </div>
+            <div class="ui active step">
+                {{register.step[1]}}
+            </div>
+            <div class="ui disabled step">
+                {{register.step[2]}}
+            </div>
+        </div>
+    </div>
+
+    <form id="personalInformation" class="ui form">
+        <div class="six wide column">
+            <div class="ui header">
+                个人信息
+            </div>
+            <div class="field">
+                <label>用户名</label>
+                <div class="ui left labeled icon input">
+                    <input disabled="disabled" type="text" value="{{user.username}}" />
+                    <i class="user icon"></i>
+                </div>
+            </div>
+            <div class="field">
+                <label>电子邮箱</label>
+                <div class="ui left labeled icon input">
+                    <input disabled="disabled" type="text" value="{{user.email}}" />
+                    <i class="mail icon"></i>
+                </div>
+            </div>
+            <div class="field">
+                <label>真实姓名</label>
+                <div class="ui left labeled icon input">
+                    <input name="name" type="text" ng-model="user.shipping.name" />
+                    <i class="male icon"></i>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>收货地址</label>
+                <div class="ui left labeled icon input">
+                    <input name="address" type="text" ng-model="user.shipping.address" />
+                    <i class="map marker icon"></i>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>邮政编码</label>
+                <div class="ui left labeled icon input">
+                    <input name="code" type="text" ng-model="user.shipping.code" />
+                    <i class="truck icon"></i>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>联系电话</label>
+                <div class="ui left labeled icon input">
+                    <input name="phone" type="text" ng-model="user.shipping.phone" />
+                    <i class="phone icon"></i>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <button class="ui blue button">下一步</button>
+</div>

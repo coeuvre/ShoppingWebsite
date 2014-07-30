@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html ng-app="store">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link href="lib/semantics/css/semantic.min.css" rel="stylesheet" />
+
+    <link href="style.css" rel="stylesheet" />
+
+    <script src="lib/jquery-2.1.1.min.js"></script>
+    <script src="lib/semantics/javascript/semantic.min.js"></script>
+    <script src="lib/angularjs/angular.min.js"></script>
+    <script src="lib/angularjs/angular-route.min.js"></script>
+
+    <script>
+        // Create a new module
+        angular.module("store", ["customFilter", "ngRoute"])
+            .config(function ($routeProvider) {
+                $routeProvider.when("/login", {
+                    templateUrl: "view/login.html"
+                });
+
+                $routeProvider.when("/register", {
+                    templateUrl: "view/register.html"
+                });
+
+                $routeProvider.when("/personalInformation", {
+                    templateUrl: "view/personalInformation.html"
+                });
+
+                $routeProvider.when("/checkout", {
+                    templateUrl: "view/checkoutSummary.html"
+                });
+
+                $routeProvider.when("/products", {
+                    templateUrl: "view/productList.html"
+                });
+
+                $routeProvider.when("/placeorder", {
+                    templateUrl: "view/placeOrder.html"
+                });
+
+                $routeProvider.when("/complete", {
+                    templateUrl: "view/thankYou.html"
+                });
+
+                $routeProvider.otherwise({
+                    templateUrl: "view/productList.html"
+                });
+            });
+
+
+        $.fn.form.settings.rules.phone = function(value) {
+            var patten = /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/;
+            return patten.test(value);
+        };
+
+        $.fn.form.settings.rules.code = function(value) {
+            var patten = /[1-9]{1}(\d+){5}/;
+            return patten.test(value);
+        };
+    </script>
+
+    <script src="controller/storeController.js"></script>
+    <script src="controller/productListController.js"></script>
+    <script src="filter/customFilter.js"></script>
+</head>
+
+<body ng-controller="storeController">
+    <div id="navigation" class="ui main menu inverted fixed">
+        <div class="item link" onclick="location.href='#/products'">
+            首页
+        </div>
+
+        <div class="right menu">
+            <a class="item popup" title="登陆" href="#/login" ng-hide="user.exist">
+                <i class="icon sign in"></i>
+            </a>
+
+            <div ng-show="user.exist">
+                <i class="item">
+                    欢迎您，<a href="#/personalInformation">{{user.username}}</a>
+                </i>
+
+                <a class="item popup" title="收藏夹">
+                    <i class="icon star"></i>
+                    1
+                </a>
+
+                <a class="item popup" title="购物车" href="#/checkout">
+                    <i class="ui icon cart"></i>
+                    {{cart.items.length}}
+                </a>
+
+                <a class="item popup" title="消息">
+                    <i class="mail icon"></i>
+                    2
+                </a>
+
+                <a class="item popup" title="退出" ng-click="user.exit()">
+                    <i class="icon sign out"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="header">
+        <div class="container">
+            <h1 class="ui header">Welcome to Online Store ! </h1>
+        </div>
+    </div>
+
+    <div class="ui divider"></div>
+
+    <ng-view></ng-view>
+
+    <div class="ui divider"></div>
+
+    <div id="foot">
+        <p id="copyright">Copyright @ 2014 Coeuvre, All Rights Reserved.</p>
+    </div>
+
+    <script>
+        $(".popup").popup();
+    </script>
+</body>
+</html>

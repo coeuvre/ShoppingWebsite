@@ -1,0 +1,175 @@
+<div id="content">
+    <div id="sidebar">
+        <div class="ui vertical steps">
+            <div class="ui step" onclick="location.href='#/checkout'">
+                {{order.step[0]}}
+            </div>
+            <div class="ui active step">
+                {{order.step[1]}}
+            </div>
+            <div class="ui disabled step">
+                {{order.step[2]}}
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="cart.items.length == 0">
+        <div class="ui message warning attached">
+            <b>您的购物车还是空的！</b>
+        </div>
+
+        <a class="ui button floated right" href="#/products">继续购物</a>
+    </div>
+
+    <form id="placeorder" class="ui form" name="shippingForm" ng-hide="cart.items.length == 0">
+        <div class="ui header">
+            订单信息
+        </div>
+
+        <div class="ui divider"></div>
+
+        <div class="ui grid divided relaxed">
+            <div class="ten wide column">
+                <table class="ui table segment">
+                    <thead>
+                        <tr>
+                            <th colspan="2">商品信息</th>
+                            <th>单价（元）</th>
+                            <th>数量</th>
+                            <th>金额（元）</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="item in cart.items">
+                            <td><img src="{{item.product.previewImageUrl}}" width="100px"/></td>
+                            <td>{{item.product.name}}</td>
+                            <td>{{item.product.price}}</td>
+                            <td>
+                                {{item.count}}
+                            </td>
+                            <td>{{item.count * item.product.price}}</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th colspan="5">
+                                合计：{{cart.total()}} 元
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="six wide column">
+                <div class="ui header">
+                    送货信息
+                </div>
+                <div class="field">
+                    <label>收货人</label>
+                    <div class="ui left labeled icon input">
+                        <input name="name" type="text" ng-model="user.shipping.name" />
+                        <i class="male icon"></i>
+                        <div class="ui corner label">
+                            <i class="asterisk icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>收货地址</label>
+                    <div class="ui left labeled icon input">
+                        <input name="address" type="text" ng-model="user.shipping.address" />
+                        <i class="map marker icon"></i>
+                        <div class="ui corner label">
+                            <i class="asterisk icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>邮政编码</label>
+                    <div class="ui left labeled icon input">
+                        <input name="code" type="text" ng-model="user.shipping.code" />
+                        <i class="truck icon"></i>
+                        <div class="ui corner label">
+                            <i class="asterisk icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>联系电话</label>
+                    <div class="ui left labeled icon input">
+                        <input name="phone" type="text" ng-model="user.shipping.phone" />
+                        <i class="phone icon"></i>
+                        <div class="ui corner label">
+                            <i class="asterisk icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui divider"></div>
+
+        <a class="ui button floated right" ng-click="order.send(user.shipping)">提交订单</a>
+        <a class="ui button floated right" href="#/products">取消订单</a>
+    </form>
+</div>
+
+<script>
+
+
+    $("#placeorder").form({
+        name: {
+            identifier: "name",
+            rules: [
+                {
+                    type: "empty",
+                    prompt: "请填写收货人姓名"
+                }
+            ]
+        },
+        address: {
+            identifier: "address",
+            rules:[
+                {
+                    type: "empty",
+                    prompt: "请填写收货地址"
+                }
+            ]
+        },
+        code: {
+            identifier: "code",
+            rules:[
+                {
+                    type: "empty",
+                    prompt: "请填写邮政编码"
+                },
+                {
+                    type: "code",
+                    prompt: "请填写正确的邮政编码"
+                }
+            ]
+        },
+        telephone: {
+            identifier: "phone",
+            rules:[
+                {
+                    type: "empty",
+                    prompt: "请填写联系电话"
+                },
+                {
+                    type: "phone",
+                    prompt: "请填写正确的联系电话"
+                }
+            ]
+        }
+    }, {
+        inline: true,
+        on: "blur"
+    });
+
+</script>

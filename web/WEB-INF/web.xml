@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <filter>
+        <filter-name>CharcodingFilter</filter-name>
+        <filter-class>filter.CharcodingFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CharcodingFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+
+    <servlet>
+        <servlet-name>UserLogin</servlet-name>
+        <servlet-class>action.UserLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetProducts</servlet-name>
+        <servlet-class>action.GetProducts</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserSession</servlet-name>
+        <servlet-class>action.UserSession</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserExit</servlet-name>
+        <servlet-class>action.UserExit</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UserLogin</servlet-name>
+        <url-pattern>/api/user/login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>GetProducts</servlet-name>
+        <url-pattern>/api/get/products</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserSession</servlet-name>
+        <url-pattern>/api/user/session</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserExit</servlet-name>
+        <url-pattern>/api/user/exit</url-pattern>
+    </servlet-mapping>
+</web-app>

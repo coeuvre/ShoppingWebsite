@@ -1,0 +1,58 @@
+<div id="content" ng-controller="productListController">
+    <div id="sidebar" class="ui vertical pointing secondary menu">
+        <a class="item" ng-click="selectCategory()" ng-class="getCategoryActiveClass()">
+            所有商品
+        </a>
+        <a class="item" ng-repeat="item in product.data | orderBy:'category' | unique:'category'"
+           ng-click="selectCategory(item)" ng-class="getCategoryActiveClass(item)">
+            {{item}}
+        </a>
+    </div>
+
+    <div id="list" class="ui three items">
+        <div class="item" ng-repeat="item in product.data | filter:categoryFilterFn | range:selectedPage:pageSize">
+            <a class="star ui corner label">
+                <i class="star icon"></i>
+            </a>
+            <div class="image">
+                <img src="{{item.previewImageUrl}}" />
+            </div>
+
+            <div class="content">
+                <div class="meta">
+                    <div class="ui label orange">{{item.price}} 元</div>
+                    <a class="ui label blue" ng-click="addProductToCart(item)"><i class="cart icon"></i></a>
+                </div>
+                <div class="name">{{item.name}}</div>
+                <p class="description">{{item.description}}</p>
+            </div>
+            <div class="extra">
+                0 人评论
+            </div>
+        </div>
+    </div>
+
+    <div class="ui pagination menu" ng-hide="product.loading">
+        <a class="icon item" ng-click="prevPage()">
+            <i class="left arrow icon"></i>
+        </a>
+        <a class="item" ng-repeat="item in product.data | filter:categoryFilterFn | pageCount:pageSize"
+           ng-click="selectPage($index + 1)" ng-class="getPageActiveClass($index + 1)">
+            {{$index + 1}}
+        </a>
+        <a class="icon item" ng-click="nextPage()">
+            <i class="right arrow icon"></i>
+        </a>
+    </div>
+
+    <div class="ui inverted dimmer" ng-class="product.loading ? 'active' : 'disabled'">
+        <div class="ui text loader">
+            读取中
+        </div>
+    </div>
+
+    <div class="ui error message" ng-show="product.error">
+        <div class="header">读取失败</div>
+        {{product.error}}
+    </div>
+</div>
