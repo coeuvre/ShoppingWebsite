@@ -64,6 +64,8 @@ angular.module("store")
         // Add to Cart
         //
         $scope.addProductToCart = function(product) {
-            $scope.cart.addProduct(product.id);
+            if ($scope.user.exist) {
+                $scope.cart.addProduct(product.id);
+            }
         };
      });
